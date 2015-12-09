@@ -3,7 +3,7 @@ Python based Markdown to HTML parser
 
 ## Usage
 For now at least:
-```python
+```shell
 python3 parse.py note.md
 ```
 
