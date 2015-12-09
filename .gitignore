@@ -58,4 +58,4 @@ target/
 
 # Test Purposes
 *.html
-*.md
+note.md
