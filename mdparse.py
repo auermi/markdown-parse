@@ -5,6 +5,7 @@ import sys
 import io
 import os
 import os.path
+import webbrowser
 
 def main():
     # Clear terminal window on osx/linux
@@ -24,12 +25,19 @@ def main():
                     with io.open(sys.argv[1]) as f:
                         # pass contents of file to the parser code
                         parse_wrapper(f.readlines(), sys.argv[1])
-                    return f.close()
+                    f.close()
+                    open_browser = input("Would you like to open the html file in your browser? (y/n):  ")
+                    if open_browser.strip().lower() == 'y':
+                        try:
+                            return webbrowser.open_new_tab('file://' + os.path.realpath(sys.argv[1][:-3] + '.html'))
+                        except:
+                            return print(err(3, sys.argv[1][:-3] + '.html'))
+                    else:
+                        return
                 except:
                     return print(err(1, sys.argv[1]))
             else:
                 return print("Not overwriting the file. Exiting now.")
-
     elif len(sys.argv) == 1:
         return print(err(2))
     else:
@@ -49,13 +57,15 @@ def parse(line):
 def err(id, filename=None):
     # Not a markdown file
     if id == 0:
-        return sys.argv[1] + ' is not a markdown file'
+        return filename + ' is not a markdown file'
     # if the file just doesn't exist
     elif id == 1:
-        return sys.argv[1] + ': this file does not exist'
+        return filename + ': this file does not exist'
     # if no file was passed
     elif id == 2:
         return 'No file was passed'
+    elif id == 3:
+        return 'Unable to open ' + filename + 'in your browser'
     else:
         return id + ' is not a valid ID'
 
