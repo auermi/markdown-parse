@@ -52,6 +52,20 @@ def parse_wrapper(md, filename):
 
 def parse(line):
     # parse markdown to html
+    if line[0:2] == '# ':
+        line = '<h1>' + line[2:].strip() + '</h1>'
+    elif line[0:3] == '## ':
+        line = '<h2>' + line[3:].strip() + '</h2>'
+    elif line[0:4] == '### ':
+        line = '<h3>' + line[4:].strip() + '</h3>'
+    elif line[0:5] == '#### ':
+        line = '<h4>' + line[5:].strip() + '</h4>'
+    elif line[0:6] == '##### ':
+        line = '<h5>' + line[6:].strip() + '</h5>'
+    elif line[0:7] == '###### ':
+        line = '<h6>' + line[7:].strip() + '</h6>'
+    else:
+        line += ' PARSE ERR'
     return line
 
 def err(id, filename=None):
