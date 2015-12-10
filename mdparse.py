@@ -47,7 +47,7 @@ def parse_wrapper(md, filename):
     # write to an html file of the same name
     with io.open(filename[:-3] + '.html', 'w') as f:
         for line in md:
-            f.write(parse(line))
+            f.write(parse(line.strip()))
     return f.close()
 
 def parse(line):
@@ -64,6 +64,8 @@ def parse(line):
         line = '<h5>' + line[6:].strip() + '</h5>'
     elif line[0:7] == '###### ':
         line = '<h6>' + line[7:].strip() + '</h6>'
+    elif line[:2] == '**' and line[-2:] == '**' or line[:2] == '__' and line[-2:] == '__':
+        line = '<strong>' + line[2:-2]  + '</strong>'
     else:
         line += ' PARSE ERR'
     return line
