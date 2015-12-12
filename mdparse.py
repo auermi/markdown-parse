@@ -6,6 +6,7 @@ import io
 import os
 import os.path
 import webbrowser
+import re
 
 def main():
     # Clear terminal window on osx/linux
@@ -70,6 +71,11 @@ def parse(line):
         line = '<p><em>' + line[1:-1]  + '</em></p>'
     elif line[:2] == '``' and line[-2:] == '``':
         line = '<p><code>' + line[2:-2] + '</code></p>';
+    elif re.search('!\[.*\]\(.*\)', line):
+        match = re.search('!\[.*\]\(.*\)', line).group(0)
+        alttext = (re.search('!\[.*\]', match)).group(0)[2:-1]
+        url = (re.search('\(.*\)', match)).group(0)
+        line = '<img alt="' + alttext + '" src="' + url + '">'
     else:
         line += ' PARSE ERR'
     return line
