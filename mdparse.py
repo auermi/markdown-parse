@@ -65,7 +65,9 @@ def parse(line):
     elif line[0:7] == '###### ':
         line = '<h6>' + line[7:].strip() + '</h6>'
     elif line[:2] == '**' and line[-2:] == '**' or line[:2] == '__' and line[-2:] == '__':
-        line = '<strong>' + line[2:-2]  + '</strong>'
+        line = '<p><strong>' + line[2:-2]  + '</strong></p>'
+    elif line[:1] == '*' and line[-1:] == '*' or line[:1] == '_' and line[-1:] == '_':
+        line = '<p><em>' + line[1:-1]  + '</em></p>'
     else:
         line += ' PARSE ERR'
     return line
