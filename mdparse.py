@@ -68,6 +68,8 @@ def parse(line):
         line = '<p><strong>' + line[2:-2]  + '</strong></p>'
     elif line[:1] == '*' and line[-1:] == '*' or line[:1] == '_' and line[-1:] == '_':
         line = '<p><em>' + line[1:-1]  + '</em></p>'
+    elif line[:2] == '``' and line[-2:] == '``':
+        line = '<p><code>' + line[2:-2] + '</code></p>';
     else:
         line += ' PARSE ERR'
     return line
