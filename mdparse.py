@@ -76,8 +76,11 @@ def parse(line):
         alttext = (re.search('!\[.*\]', match)).group(0)[2:-1]
         url = (re.search('\(.*\)', match)).group(0)
         line = '<img alt="' + alttext + '" src="' + url + '">'
+    elif re.search('(\[.*\]){2}', line):
+        match = re.findall('\[[^]]*\]', line)
+        line = '<p><a href="' + match[1][1:-1] + '">' + match[0][1:-1] + '</a></p>'
     else:
-        line += ' PARSE ERR'
+        line = '<p>' + line + ' PARSE ERR</p>'
     return line
 
 def err(id, filename=None):
