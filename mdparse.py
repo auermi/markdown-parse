@@ -83,7 +83,7 @@ def parse(line):
         line = '<br>'
     else:
         line = '<p>' + line + ' PARSE ERR</p>'
-    return line
+    return line + '\n'
 
 def err(id, filename=None):
     # Not a markdown file
