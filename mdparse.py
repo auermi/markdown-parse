@@ -79,6 +79,8 @@ def parse(line):
     elif re.search('(\[.*\]){2}', line):
         match = re.findall('\[[^]]*\]', line)
         line = '<p><a href="' + match[1][1:-1] + '">' + match[0][1:-1] + '</a></p>'
+    elif line == '':
+        line = '<br>'
     else:
         line = '<p>' + line + ' PARSE ERR</p>'
     return line
